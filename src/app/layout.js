@@ -14,11 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://portofolio-next-andi-pratama.vercel.app"),
   title: {
     default: "Andi Pratama | Portofolio",
     template: "%s | Andi Pratama",
   },
   description: "Portofolio Andi Pratama, siswa SMK calon Junior Web Developer di Kelas Industri UBIG.",
+  openGraph: {
+    title: "Andi Pratama | Portofolio",
+    description: "Portofolio Andi Pratama, siswa SMK calon Junior Web Developer di Kelas Industri UBIG.",
+    url: "/",
+    siteName: "Portofolio Andi Pratama",
+    locale: "id_ID",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {

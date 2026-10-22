@@ -21,7 +21,19 @@ export async function generateMetadata({ params }) {
   if (!item) {
     return { title: "Proyek tidak ditemukan" };
   }
-  return { title: item.judul, description: item.deskripsi };
+  return {
+    title: item.judul,
+    description: item.deskripsi,
+    openGraph: {
+      title: item.judul,
+      description: item.deskripsi,
+      url: `/proyek/${slug}`,
+      siteName: "Portofolio Andi Pratama",
+      locale: "id_ID",
+      type: "article",
+      images: [item.gambar_url],
+    },
+  };
 }
 
 export default async function DetailProyek({ params }) {
