@@ -63,3 +63,17 @@ Pesan publik dari halaman Buku Tamu. Dibuat dengan SQL `create table` di SQL Edi
 
 RLS aktif. Policy `Pengunjung boleh membaca buku tamu` (`select`) dan `Pengunjung boleh menulis buku tamu`
 (`insert`) untuk peran `anon`. Mengubah dan menghapus pesan hanya lewat halaman `/kelola` dengan secret key.
+
+## Tabel `testimonials`
+
+Testimoni di halaman Beranda. Dibuat dengan SQL `create table` saat uji praktik Minggu 16.
+
+| Kolom | Tipe | Keterangan |
+| --- | --- | --- |
+| `id` | `int8` | Primary key, nomor otomatis 1, 2, 3, ... |
+| `created_at` | `timestamptz` | Waktu baris dibuat, terisi otomatis dengan `now()` |
+| `nama` | `text` | Nama pemberi testimoni |
+| `peran` | `text` | Hubungannya dengan kamu, misalnya guru atau teman |
+| `isi` | `text` | Isi testimoni |
+
+RLS aktif. Policy `Pengunjung boleh membaca testimoni`: peran `anon` boleh `select` semua baris.

@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Portofolio Andi Pratama
 
-## Getting Started
+Website portofolio pribadi Andi Pratama, siswa kelas X SMK Mitra, peserta Kelas Industri UBIG
+Paket 1 (Full Stack Basic). Datanya tersimpan di Supabase dan website-nya di-deploy di Vercel.
 
-First, run the development server:
+![Pratinjau portofolio Andi Pratama](src/app/opengraph-image.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Website:** https://portofolio-next-andi-pratama.vercel.app
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Fitur
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Beranda berisi profil, keahlian dari database, tiga proyek terbaru, dan testimoni.
+- Halaman Proyek dengan pencarian, filter kategori, dan halaman detail setiap proyek.
+- Halaman Tentang dan halaman Kontak dengan validasi form.
+- Buku Tamu yang menyimpan pesan pengunjung ke database.
+- Halaman Kelola ber-PIN untuk menyematkan dan menghapus pesan serta mengelola data proyek.
+- Mode gelap dan tampilan responsif di ponsel maupun laptop.
+- Pratinjau tautan (Open Graph) saat dibagikan ke Telegram atau WhatsApp.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Teknologi
 
-## Learn More
+- Next.js 16 (App Router) dan React 19
+- Tailwind CSS dan shadcn/ui
+- Supabase (database PostgreSQL)
+- Vercel (hosting dan deploy otomatis)
 
-To learn more about Next.js, take a look at the following resources:
+## Menjalankan di Komputer Sendiri
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone repositori ini, lalu buka foldernya di VS Code.
+2. Jalankan `npm install` di terminal.
+3. Buat berkas `.env.local` berisi empat variabel berikut. Nilainya diambil dari dasbor Supabase
+   dan PIN buatan sendiri. Berkas ini tidak boleh di-commit.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+   SUPABASE_SECRET_KEY=
+   ADMIN_PIN=
+   ```
 
-## Deploy on Vercel
+4. Jalankan `npm run dev`, lalu buka http://localhost:3000.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Struktur Folder
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Folder | Isi |
+| --- | --- |
+| `src/app` | Halaman, layout, Server Actions, dan gambar Open Graph |
+| `src/components` | Komponen buatan sendiri; folder `ui` berisi komponen shadcn/ui |
+| `src/lib` | Koneksi Supabase, pemeriksaan PIN, dan fungsi `cn` |
+| `public` | Foto profil dan gambar proyek |
+| `docs` | Dokumentasi tabel database |
+| `desain` | Kartu HTML sumber gambar Open Graph |
+
+## Database
+
+Tabel `projects`, `messages`, `skills`, `buku_tamu`, dan `testimonials` beserta policy-nya
+dijelaskan di [docs/database.md](docs/database.md).
+
+## Perjalanan Belajar
+
+| Minggu | Hasil |
+| --- | --- |
+| 10 | Project Next.js pertama |
+| 11 | Portofolio v3 multi-halaman |
+| 12 | Filter dan pencarian proyek |
+| 13 | Database portofolio di Supabase |
+| 14 | Data proyek tampil dari database dalam komponen shadcn/ui |
+| 15 | Buku tamu dan halaman kelola data |
+| 16 | Portofolio v4 full stack |
+
+## Penulis
+
+Andi Pratama, SMK Mitra, Kelas Industri UBIG 2026/2027.
