@@ -1,7 +1,8 @@
 # Struktur Database Portofolio
 
-Database disimpan di Supabase, project `portofolio-andi` (region Southeast Asia, Singapore). Alamat project dan
-publishable key disimpan di `.env.local`, yang tidak ikut di-commit karena tercantum di `.gitignore` (`.env*`).
+Database disimpan di Supabase, project `portofolio-andi` (region Southeast Asia, Singapore). Alamat project,
+publishable key, secret key (`SUPABASE_SECRET_KEY`), dan PIN halaman kelola (`ADMIN_PIN`) disimpan di `.env.local`,
+yang tidak ikut di-commit karena tercantum di `.gitignore` (`.env*`).
 
 ## Tabel `projects`
 
@@ -47,3 +48,18 @@ Daftar keahlian Andi Pratama.
 | `level` | `text` | Dasar, Menengah, atau Mahir |
 
 RLS aktif. Policy `Pengunjung boleh membaca keahlian`: peran `anon` boleh `select` semua baris.
+
+## Tabel `buku_tamu`
+
+Pesan publik dari halaman Buku Tamu. Dibuat dengan SQL `create table` di SQL Editor.
+
+| Kolom | Tipe | Keterangan |
+| --- | --- | --- |
+| `id` | `int8` | Primary key, nomor otomatis 1, 2, 3, ... |
+| `created_at` | `timestamptz` | Waktu baris dibuat, terisi otomatis dengan `now()` |
+| `nama` | `text` | Nama pengirim (wajib) |
+| `pesan` | `text` | Isi pesan (wajib) |
+| `disematkan` | `bool` | `true` jika pesan disematkan di atas, bawaan `false` |
+
+RLS aktif. Policy `Pengunjung boleh membaca buku tamu` (`select`) dan `Pengunjung boleh menulis buku tamu`
+(`insert`) untuk peran `anon`. Mengubah dan menghapus pesan hanya lewat halaman `/kelola` dengan secret key.
