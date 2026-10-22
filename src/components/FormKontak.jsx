@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const kelasInput = "mt-1 w-full rounded-lg border border-input bg-card p-2";
 
@@ -112,9 +113,9 @@ export default function FormKontak() {
         />
         {error.pesan && <p className="mt-1 text-sm text-aksen">{error.pesan}</p>}
       </div>
-      <button type="submit" className="rounded-lg bg-aksen px-5 py-2 font-semibold text-white">
+      <Button type="submit" size="lg">
         Kirim Pesan
-      </button>
+      </Button>
       <p className="text-sm text-muted-foreground">Form ini belum mengirim pesan. Pengiriman pesan diaktifkan di Minggu 15.</p>
       {berhasil && (
         <p className="rounded-lg bg-green-100 p-3 text-green-800 dark:bg-green-900 dark:text-green-100">

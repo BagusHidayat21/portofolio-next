@@ -1,4 +1,5 @@
 import FormKontak from "@/components/FormKontak";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata = {
   title: "Kontak",
@@ -12,25 +13,31 @@ export default function Kontak() {
       <p className="mt-3 text-lg text-muted-foreground">Punya pertanyaan atau ingin bekerja sama? Isi form berikut.</p>
 
       <div className="mt-8 grid gap-6 md:grid-cols-3">
-        <section className="rounded-xl border border-border bg-card p-6 shadow-sm md:col-span-2">
-          <FormKontak />
-        </section>
+        <Card className="md:col-span-2">
+          <CardContent>
+            <FormKontak />
+          </CardContent>
+        </Card>
 
-        <section className="rounded-xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-3 text-2xl font-bold text-primary">Temukan Saya di</h2>
-          <ul className="space-y-2">
-            <li>
-              <a href="https://github.com/BagusHidayat21" target="_blank" className="text-aksen hover:underline">
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="mailto:andi.pratama@example.com" className="text-aksen hover:underline">
-                andi.pratama@example.com
-              </a>
-            </li>
-          </ul>
-        </section>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold text-primary">Temukan Saya di</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2">
+              <li>
+                <a href="https://github.com/BagusHidayat21" target="_blank" className="text-aksen hover:underline">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a href="mailto:andi.pratama@example.com" className="text-aksen hover:underline">
+                  andi.pratama@example.com
+                </a>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
       </div>
     </main>
   );
