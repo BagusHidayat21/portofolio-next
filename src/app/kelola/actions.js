@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { sudahMasuk } from "@/lib/pin";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
@@ -45,4 +46,101 @@ export async function hapusPesan(formData) {
 
   revalidatePath("/kelola");
   revalidatePath("/buku-tamu");
+}
+
+const daftarKategori = ["HTML", "CSS", "JavaScript", "Next.js"];
+
+function bacaProyek(formData) {
+  return {
+    judul: formData.get("judul").trim(),
+    slug: formData.get("slug").trim(),
+    kategori: formData.get("kategori").trim(),
+    minggu: formData.get("minggu").trim(),
+    deskripsi: formData.get("deskripsi").trim(),
+    fitur: formData.get("fitur").split("\n").map((f) => f.trim()).filter((f) => f !== ""),
+    gambar_url: formData.get("gambar_url").trim(),
+  };
+}
+
+function cekProyek(proyek) {
+  if (proyek.judul === "" || proyek.slug === "" || proyek.deskripsi === "") {
+    return "Judul, slug, dan deskripsi wajib diisi.";
+  }
+  if (proyek.slug.includes(" ")) {
+    return "Slug tidak boleh memakai spasi. Gunakan tanda hubung, contoh: buku-tamu.";
+  }
+  if (!daftarKategori.includes(proyek.kategori)) {
+    return "Kategori harus HTML, CSS, JavaScript, atau Next.js.";
+  }
+  if (!proyek.gambar_url.startsWith("/proyek/")) {
+    return "Alamat gambar harus diawali /proyek/, contoh: /proyek/proyek-buku-tamu.png.";
+  }
+  return "";
+}
+
+function perbaruiHalaman(slug) {
+  revalidatePath("/");
+  revalidatePath("/proyek");
+  revalidatePath(`/proyek/${slug}`);
+  revalidatePath("/kelola");
+}
+
+export async function tambahProyek(stateSebelum, formData) {
+  const proyek = bacaProyek(formData);
+  if (!(await sudahMasuk())) {
+    return { error: "Masukkan PIN dulu di halaman Kelola.", proyek };
+  }
+
+  const error = cekProyek(proyek);
+  if (error !== "") {
+    return { error, proyek };
+  }
+
+  const hasil = await supabaseAdmin.from("projects").insert(proyek);
+  if (hasil.error) {
+    if (hasil.error.code === "23505") {
+      return { error: "Slug sudah dipakai proyek lain.", proyek };
+    }
+    return { error: `Proyek gagal disimpan: ${hasil.error.message}`, proyek };
+  }
+
+  perbaruiHalaman(proyek.slug);
+  redirect("/kelola");
+}
+
+export async function ubahProyek(stateSebelum, formData) {
+  const proyek = bacaProyek(formData);
+  if (!(await sudahMasuk())) {
+    return { error: "Masukkan PIN dulu di halaman Kelola.", proyek };
+  }
+
+  const error = cekProyek(proyek);
+  if (error !== "") {
+    return { error, proyek };
+  }
+
+  const id = formData.get("id");
+  const hasil = await supabaseAdmin.from("projects").update(proyek).eq("id", id);
+  if (hasil.error) {
+    if (hasil.error.code === "23505") {
+      return { error: "Slug sudah dipakai proyek lain.", proyek };
+    }
+    return { error: `Proyek gagal diubah: ${hasil.error.message}`, proyek };
+  }
+
+  perbaruiHalaman(proyek.slug);
+  redirect("/kelola");
+}
+
+export async function hapusProyek(formData) {
+  if (!(await sudahMasuk())) {
+    return;
+  }
+
+  const id = formData.get("id");
+  await supabaseAdmin.from("projects").delete().eq("id", id);
+
+  revalidatePath("/");
+  revalidatePath("/proyek");
+  revalidatePath("/kelola");
 }

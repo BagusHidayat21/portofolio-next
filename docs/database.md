@@ -15,7 +15,7 @@ Daftar proyek portofolio Andi Pratama.
 | `slug` | `text` | Penanda unik di alamat, misalnya `halaman-profil` (unik) |
 | `judul` | `text` | Judul proyek |
 | `deskripsi` | `text` | Kalimat singkat tentang proyek |
-| `kategori` | `text` | HTML, CSS, atau JavaScript |
+| `kategori` | `text` | HTML, CSS, JavaScript, atau Next.js |
 | `minggu` | `text` | Minggu proyek dibuat, misalnya `Minggu 01` |
 | `fitur` | `text[]` | Daftar hal yang dipelajari (array teks) |
 | `gambar_url` | `text` | Alamat gambar di folder `public`, misalnya `/proyek/proyek-profil.png` |
